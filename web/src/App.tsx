@@ -39,36 +39,41 @@ export function App() {
 
   return (
     <>
-      <header className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+      <header className="border-b border-slate-200 bg-white print:hidden dark:border-slate-800 dark:bg-slate-900">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-4">
           <span className="grid size-9 place-items-center rounded-xl bg-brand text-white">
             <PlusIcon strokeWidth={3} />
           </span>
           <div>
             <p className="text-lg font-extrabold leading-tight">Clinic Booking</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Book your appointment in under a minute</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300">Book your appointment in under a minute</p>
           </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-5xl px-4 pb-16 pt-6">
-        <Stepper current={step} />
-        <ApiKeyInput value={apiKey} onChange={setApiKey} needsAttention={needsKeyAttention} />
+        {/* Everything except the confirmation is hidden when printing, so the receipt prints alone. */}
+        <div className="print:hidden">
+          <Stepper current={step} />
+          <ApiKeyInput value={apiKey} onChange={setApiKey} needsAttention={needsKeyAttention} />
+        </div>
 
-        <div className="grid items-start gap-5 lg:grid-cols-[1fr_360px]">
-          <SlotPicker
-            hasKey={apiKey.trim() !== ''}
-            loading={state.status === 'loading'}
-            error={state.status === 'error' ? state.message : undefined}
-            slots={slots}
-            selectedId={selected?.id}
-            onSelect={(slot) => {
-              setBooking(null);
-              setSelected(slot);
-            }}
-          />
+        <div className="grid items-start gap-5 lg:grid-cols-[1fr_360px] print:block">
+          <div className="print:hidden">
+            <SlotPicker
+              hasKey={apiKey.trim() !== ''}
+              loading={state.status === 'loading'}
+              error={state.status === 'error' ? state.message : undefined}
+              slots={slots}
+              selectedId={selected?.id}
+              onSelect={(slot) => {
+                setBooking(null);
+                setSelected(slot);
+              }}
+            />
+          </div>
 
-          <div className="lg:sticky lg:top-6">
+          <div className="lg:sticky lg:top-6 print:static">
             {booking ? (
               <Confirmation
                 apiKey={apiKey}
@@ -82,7 +87,7 @@ export function App() {
               <BookingForm key={selected.id} apiKey={apiKey} slot={selected} onBooked={handleBooked} onSlotTaken={handleSlotTaken} />
             ) : (
               <Card title="Your appointment">
-                <p className="text-slate-500 dark:text-slate-400">Pick a time on the left and your details will appear here.</p>
+                <p className="text-slate-600 dark:text-slate-300">Pick a time on the left and your details will appear here.</p>
               </Card>
             )}
           </div>

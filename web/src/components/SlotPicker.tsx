@@ -45,7 +45,7 @@ export function SlotPicker({ loading, hasKey, error, slots, selectedId, onSelect
   return (
     <Card title="Select a date & time">
       {message ? (
-        <p role="status" className={error && hasKey ? 'text-red-600 dark:text-red-400' : 'text-slate-500 dark:text-slate-400'}>
+        <p role="status" className={error && hasKey ? 'text-red-600 dark:text-red-400' : 'text-slate-600 dark:text-slate-300'}>
           {message}
         </p>
       ) : (
@@ -77,7 +77,7 @@ export function SlotPicker({ loading, hasKey, error, slots, selectedId, onSelect
                 >
                   <span className="text-xs font-medium opacity-80">{formatWeekday(day.first)}</span>
                   <span className="text-base font-bold">{formatDayMonth(day.first)}</span>
-                  <span className={`text-xs ${active ? 'opacity-90' : 'text-slate-500 dark:text-slate-400'}`}>{open} open</span>
+                  <span className={`text-xs ${active ? 'opacity-90' : 'text-slate-600 dark:text-slate-300'}`}>{open} open</span>
                 </button>
               );
             })}
@@ -102,7 +102,7 @@ export function SlotPicker({ loading, hasKey, error, slots, selectedId, onSelect
                   ].join(' ')}
                 >
                   <span className={`block font-bold ${slot.available ? '' : 'line-through'}`}>{formatTime(slot.start)}</span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400">
+                  <span className="block text-xs text-slate-600 dark:text-slate-300">
                     {slot.available ? slot.provider : 'Booked'}
                   </span>
                 </button>

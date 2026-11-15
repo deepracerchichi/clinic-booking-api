@@ -16,3 +16,8 @@ body {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;
 }
+
+/* Urbanist has a small x-height, so bump the root size: every rem-based Tailwind size scales with it. */
+html {
+  font-size: 17.5px;
+}
