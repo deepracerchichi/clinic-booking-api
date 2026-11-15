@@ -3,6 +3,7 @@ services:
     name: clinic-booking-api
     runtime: node
     plan: free
+    region: ohio # same region as the Neon database, to keep queries fast
     # --include=dev: TypeScript is a dev dependency and Render sets NODE_ENV=production during builds.
     buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
